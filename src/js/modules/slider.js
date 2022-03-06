@@ -1,10 +1,9 @@
 export default class Slider {
-    constructor(page, btns, slideControl) {
+    constructor(page, btns) {
         this.page = document.querySelector(page);
         this.btns = document.querySelectorAll(btns);
-        this.pageIndex = 1
+        this.pageIndex = 1;
     }
-
 
     hidePages() {
         this.page.children.forEach((el) => {
@@ -21,6 +20,18 @@ export default class Slider {
 
         this.hidePages();
         this.page.children[this.pageIndex - 1].style.display = 'block';
+
+        try { ///show popup of teacher in th 3rd page
+            this.teacherImg = document.querySelector('.hanson');
+            this.teacherImg.style.display = 'none';
+            if (this.pageIndex === 3) {
+                this.teacherImg.style.display = 'block';
+                this.teacherImg.classList.add('animated', 'fadeInUp');
+                setTimeout(() => this.teacherImg.style.display = 'block', 3000);
+            } else {
+                console.log(this.pageIndex)
+            }
+        } catch (e) { }
     }
 
     movePage(number) {

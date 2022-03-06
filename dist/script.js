@@ -960,7 +960,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Slider =
 /*#__PURE__*/
 function () {
-  function Slider(page, btns, slideControl) {
+  function Slider(page, btns) {
     _classCallCheck(this, Slider);
 
     this.page = document.querySelector(page);
@@ -978,6 +978,8 @@ function () {
   }, {
     key: "showPage",
     value: function showPage(number) {
+      var _this = this;
+
       if (number === this.page.children.length) {
         this.pageIndex = 1;
       } else if (number < 1) {
@@ -986,6 +988,22 @@ function () {
 
       this.hidePages();
       this.page.children[this.pageIndex - 1].style.display = 'block';
+
+      try {
+        ///show popup of teacher in th 3rd page
+        this.teacherImg = document.querySelector('.hanson');
+        this.teacherImg.style.display = 'none';
+
+        if (this.pageIndex === 3) {
+          this.teacherImg.style.display = 'block';
+          this.teacherImg.classList.add('animated', 'fadeInUp');
+          setTimeout(function () {
+            return _this.teacherImg.style.display = 'block';
+          }, 3000);
+        } else {
+          console.log(this.pageIndex);
+        }
+      } catch (e) {}
     }
   }, {
     key: "movePage",
@@ -995,20 +1013,20 @@ function () {
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       console.log(this.page.children);
       this.hidePages();
       this.showPage(this.pageIndex);
       this.btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-          _this.movePage(1);
+          _this2.movePage(1);
         });
         btn.parentNode.previousElementSibling.addEventListener('click', function () {
           console.log('hey');
-          _this.pageIndex = 1;
+          _this2.pageIndex = 1;
 
-          _this.showPage(_this.pageIndex);
+          _this2.showPage(_this2.pageIndex);
         });
       });
     }
