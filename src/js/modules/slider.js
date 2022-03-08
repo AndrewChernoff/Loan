@@ -28,8 +28,6 @@ export default class Slider {
                 this.teacherImg.style.display = 'block';
                 this.teacherImg.classList.add('animated', 'fadeInUp');
                 setTimeout(() => this.teacherImg.style.display = 'block', 3000);
-            } else {
-                console.log(this.pageIndex)
             }
         } catch (e) { }
     }
@@ -39,7 +37,6 @@ export default class Slider {
     }
 
     render() {
-        console.log(this.page.children);
         this.hidePages();
         this.showPage(this.pageIndex);
 
@@ -49,7 +46,6 @@ export default class Slider {
             });
 
             btn.parentNode.previousElementSibling.addEventListener('click', () => {
-                console.log('hey')
                 this.pageIndex = 1;
                 this.showPage(this.pageIndex);
             })

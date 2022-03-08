@@ -930,10 +930,106 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
+/* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
+/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
 
-var slider = new _modules_slider__WEBPACK_IMPORTED_MODULE_0__["default"]('.page', '.next');
+
+var slider = new _modules_slider__WEBPACK_IMPORTED_MODULE_1__["default"]('.page', '.next');
 slider.render();
+var video = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_0__["default"]('.play__circle', '.overlay', '.close');
+video.render();
+
+/***/ }),
+
+/***/ "./src/js/modules/playVideo.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/playVideo.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return playVideo; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var playVideo =
+/*#__PURE__*/
+function () {
+  function playVideo(trigger, modal, close) {
+    _classCallCheck(this, playVideo);
+
+    this.trigger = document.querySelectorAll(trigger);
+    this.modal = document.querySelector(modal);
+    this.close = document.querySelector(close);
+  }
+
+  _createClass(playVideo, [{
+    key: "onYouTubeIframeAPIReady",
+    value: function onYouTubeIframeAPIReady(url) {
+      /// youtube API
+      this.player = new YT.Player('frame', {
+        height: '360',
+        width: '640',
+        videoId: "".concat(url)
+      });
+    }
+  }, {
+    key: "play",
+    value: function play() {
+      var _this = this;
+
+      ///open popup with youtube video
+      this.trigger.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (document.querySelector('iframe#frame')) {
+            ///when iframe created
+            _this.modal.style.display = 'flex';
+          } else {
+            _this.modal.style.display = 'flex';
+            var path = btn.parentNode.getAttribute('data-url');
+
+            _this.onYouTubeIframeAPIReady(path);
+          }
+        });
+      });
+    }
+  }, {
+    key: "closeModal",
+    value: function closeModal() {
+      var _this2 = this;
+
+      ///close popup with youtube video
+      this.close.addEventListener('click', function () {
+        _this2.modal.style.display = 'none';
+
+        _this2.player.pauseVideo();
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      this.play();
+      this.closeModal();
+    }
+  }]);
+
+  return playVideo;
+}();
+
+
 
 /***/ }),
 
@@ -1000,8 +1096,6 @@ function () {
           setTimeout(function () {
             return _this.teacherImg.style.display = 'block';
           }, 3000);
-        } else {
-          console.log(this.pageIndex);
         }
       } catch (e) {}
     }
@@ -1015,7 +1109,6 @@ function () {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.page.children);
       this.hidePages();
       this.showPage(this.pageIndex);
       this.btns.forEach(function (btn) {
@@ -1023,7 +1116,6 @@ function () {
           _this2.movePage(1);
         });
         btn.parentNode.previousElementSibling.addEventListener('click', function () {
-          console.log('hey');
           _this2.pageIndex = 1;
 
           _this2.showPage(_this2.pageIndex);
