@@ -1,25 +1,31 @@
 export default class Slider {
-    constructor(page, btns) {
-        this.page = document.querySelector(page);
+    constructor({ container = null, btns = null, nextBtn = null, prevBtn = null, activeClassname = null, animated = null, interval = null } = '') {
+        this.container = document.querySelector(container);
+        this.slides = this.container.children;
         this.btns = document.querySelectorAll(btns);
+        this.nextBtn = document.querySelector(nextBtn);
+        this.prevBtn = document.querySelector(prevBtn);
+        this.activeClassname = activeClassname;
+        this.animated = animated;
+        this.interval = interval;
         this.pageIndex = 1;
     }
 
-    hidePages() {
-        this.page.children.forEach((el) => {
+    /* hidePages() {
+        this.slides.forEach((el) => {
             el.style.display = 'none';
         });
     }
 
     showPage(number) {
-        if (number === this.page.children.length) {
+        if (number === this.slides.length) {
             this.pageIndex = 1;
         } else if (number < 1) {
-            this.pageIndex = this.page.children.length;
+            this.pageIndex = this.slides.length;
         }
 
         this.hidePages();
-        this.page.children[this.pageIndex - 1].style.display = 'block';
+        this.slides[this.pageIndex - 1].style.display = 'block';
 
         try { ///show popup of teacher in th 3rd page
             this.teacherImg = document.querySelector('.hanson');
@@ -50,5 +56,5 @@ export default class Slider {
                 this.showPage(this.pageIndex);
             })
         })
-    }
+    } */
 }
