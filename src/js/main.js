@@ -1,7 +1,8 @@
+import Difference from "./modules/difference";
+import Form from "./modules/form";
 import playVideo from "./modules/playVideo";
 import MainSlider from "./modules/slider/main_slider";
 import MiniSlider from "./modules/slider/mini_slider";
-//import Slider from "./modules/slider/slider";
 
 const slider = new MainSlider({
     container: '.page',
@@ -37,4 +38,23 @@ const feedSlider = new MiniSlider({
     prevBtn: '.feed__slider .slick-prev .play__content',
     activeClassname: 'feed__item-active'
 })
-feedSlider.init(); 
+feedSlider.init();
+
+const education = new Difference({
+    container: '.officerold',
+    items: '.officerold .officer__card-item',
+    clickItem: '.plus'
+})
+education.init();
+
+const educationPast = new Difference({
+    container: '.officernew',
+    items: '.officernew .officer__card-item',
+    clickItem: '.plus'
+})
+educationPast.init();
+
+const form = new Form({
+    selector: '.form'
+});
+form.init();

@@ -2760,19 +2760,22 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
-/* harmony import */ var _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/slider/main_slider */ "./src/js/modules/slider/main_slider.js");
-/* harmony import */ var _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/slider/mini_slider */ "./src/js/modules/slider/mini_slider.js");
+/* harmony import */ var _modules_difference__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/difference */ "./src/js/modules/difference.js");
+/* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
+/* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
+/* harmony import */ var _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/slider/main_slider */ "./src/js/modules/slider/main_slider.js");
+/* harmony import */ var _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/slider/mini_slider */ "./src/js/modules/slider/mini_slider.js");
 
 
- //import Slider from "./modules/slider/slider";
 
-var slider = new _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_1__["default"]({
+
+
+var slider = new _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_3__["default"]({
   container: '.page',
   btns: '.next'
 });
 slider.render();
-var miniSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_2__["default"]({
+var miniSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["default"]({
   container: '.showup__content-slider',
   nextBtn: '.showup__next',
   prevBtn: '.showup__prev',
@@ -2780,9 +2783,9 @@ var miniSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_2__["d
   animated: true
 });
 miniSlider.init();
-var video = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_0__["default"]('.play__circle', '.overlay', '.close');
+var video = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.play__circle', '.overlay', '.close');
 video.render();
-var moduleSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_2__["default"]({
+var moduleSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["default"]({
   container: '.modules__content-slider',
   nextBtn: '.slick-next',
   prevBtn: '.slick-prev',
@@ -2791,13 +2794,153 @@ var moduleSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_2__[
   interval: true
 });
 moduleSlider.init();
-var feedSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_2__["default"]({
+var feedSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["default"]({
   container: '.feed__slider',
   nextBtn: '.feed__slider .slick-next .play__content',
   prevBtn: '.feed__slider .slick-prev .play__content',
   activeClassname: 'feed__item-active'
 });
 feedSlider.init();
+var education = new _modules_difference__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  container: '.officerold',
+  items: '.officerold .officer__card-item',
+  clickItem: '.plus'
+});
+education.init();
+var educationPast = new _modules_difference__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  container: '.officernew',
+  items: '.officernew .officer__card-item',
+  clickItem: '.plus'
+});
+educationPast.init();
+var form = new _modules_form__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  selector: '.form'
+});
+form.init();
+
+/***/ }),
+
+/***/ "./src/js/modules/difference.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/difference.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Difference; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Difference =
+/*#__PURE__*/
+function () {
+  function Difference() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '',
+        _ref$container = _ref.container,
+        container = _ref$container === void 0 ? null : _ref$container,
+        _ref$items = _ref.items,
+        items = _ref$items === void 0 ? null : _ref$items,
+        _ref$clickItem = _ref.clickItem,
+        clickItem = _ref$clickItem === void 0 ? null : _ref$clickItem;
+
+    _classCallCheck(this, Difference);
+
+    this.container = document.querySelector(container), this.items = document.querySelectorAll(items), this.clickItem = this.container.querySelector(clickItem), this.index = 0;
+  }
+
+  _createClass(Difference, [{
+    key: "hideItems",
+    value: function hideItems() {
+      var _this = this;
+
+      this.items.forEach(function (el) {
+        el.style.display = 'none';
+        _this.items[_this.items.length - 1].style.display = 'flex';
+      });
+    }
+  }, {
+    key: "showItem",
+    value: function showItem() {
+      if (this.index == this.items.length - 2) {
+        this.clickItem.parentNode.parentNode.remove();
+      }
+
+      this.items[this.index].style.display = 'flex';
+      this.index++;
+    }
+  }, {
+    key: "addElement",
+    value: function addElement() {
+      var _this2 = this;
+
+      this.clickItem.addEventListener('click', function () {
+        return _this2.showItem();
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.hideItems();
+      this.addElement();
+    }
+  }]);
+
+  return Difference;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/modules/form.js":
+/*!********************************!*\
+  !*** ./src/js/modules/form.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Form; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Form =
+/*#__PURE__*/
+function () {
+  function Form() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '',
+        _ref$selector = _ref.selector,
+        selector = _ref$selector === void 0 ? null : _ref$selector;
+
+    _classCallCheck(this, Form);
+
+    this.form = document.querySelector(selector);
+  }
+
+  _createClass(Form, [{
+    key: "init",
+    value: function init() {
+      console.log(this.form);
+    }
+  }]);
+
+  return Form;
+}();
+
+
 
 /***/ }),
 
