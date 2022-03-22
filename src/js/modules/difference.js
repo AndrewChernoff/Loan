@@ -26,7 +26,7 @@ export default class Difference {
     }
 
     init() {
-        this.hideItems()
-        this.addElement()
+        this.hideItems();
+        this.addElement();
     }
 }

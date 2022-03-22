@@ -12,10 +12,10 @@ export default class MainSlider extends Slider {
     }
 
     showPage(number) {
-        if (number === this.slides.length) {
+        if (number === this.slides.length + 1) {
             this.pageIndex = 1;
         } else if (number < 1) {
-            this.pageIndex = this.slides.length;
+            this.pageIndex = this.slides.length + 1;
         }
 
         this.hidePages();
