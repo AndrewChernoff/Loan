@@ -37,18 +37,21 @@ export default class MainSlider extends Slider {
     }
 
     render() {
-        this.hidePages();
-        this.showPage(this.pageIndex);
+        try {
+            this.hidePages();
+            this.showPage(this.pageIndex);
 
-        this.btns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.movePage(1);
-            });
+            this.btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.movePage(1);
+                });
 
-            btn.parentNode.previousElementSibling.addEventListener('click', () => {
-                this.pageIndex = 1;
-                this.showPage(this.pageIndex);
+                btn.parentNode.previousElementSibling.addEventListener('click', () => {
+                    this.pageIndex = 1;
+                    this.showPage(this.pageIndex);
+                })
             })
-        })
+        } catch (e) { }
+
     }
 }

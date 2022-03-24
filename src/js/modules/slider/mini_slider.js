@@ -74,12 +74,15 @@ export default class MiniSlider extends Slider {
     }
 
     init() {
-        this.bindTriggers();
-        if (this.interval) {
-            let sliderAnimation = setInterval(() => this.moveNextSlide(), 5000);
+        try {
+            this.bindTriggers();
+            if (this.interval) {
+                let sliderAnimation = setInterval(() => this.moveNextSlide(), 5000);
 
-            this.container.addEventListener('mouseenter', () => clearInterval(sliderAnimation));
-            this.container.addEventListener('mouseleave', () => this.moveNextSlide());
-        }
+                this.container.addEventListener('mouseenter', () => clearInterval(sliderAnimation));
+                this.container.addEventListener('mouseleave', () => this.moveNextSlide());
+            }
+        } catch (e) { }
+
     }
 }

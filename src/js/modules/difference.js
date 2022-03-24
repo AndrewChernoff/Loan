@@ -1,9 +1,9 @@
 export default class Difference {
     constructor({ container = null, items = null, clickItem = null } = '') {
-        this.container = document.querySelector(container),
-            this.items = document.querySelectorAll(items),
-            this.clickItem = this.container.querySelector(clickItem),
-            this.index = 0
+        this.container = document.querySelector(container);
+        this.items = document.querySelectorAll(items);
+        try { this.clickItem = this.container.querySelector(clickItem) } catch (e) { };
+        this.index = 0;
     };
 
     hideItems() {
@@ -26,7 +26,9 @@ export default class Difference {
     }
 
     init() {
-        this.hideItems();
-        this.addElement();
+        try {
+            this.hideItems();
+            this.addElement();
+        } catch (e) { }
     }
 }

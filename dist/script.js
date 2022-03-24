@@ -5050,7 +5050,15 @@ function () {
 
     _classCallCheck(this, Difference);
 
-    this.container = document.querySelector(container), this.items = document.querySelectorAll(items), this.clickItem = this.container.querySelector(clickItem), this.index = 0;
+    this.container = document.querySelector(container);
+    this.items = document.querySelectorAll(items);
+
+    try {
+      this.clickItem = this.container.querySelector(clickItem);
+    } catch (e) {}
+
+    ;
+    this.index = 0;
   }
 
   _createClass(Difference, [{
@@ -5085,8 +5093,10 @@ function () {
   }, {
     key: "init",
     value: function init() {
-      this.hideItems();
-      this.addElement();
+      try {
+        this.hideItems();
+        this.addElement();
+      } catch (e) {}
     }
   }]);
 
@@ -5482,18 +5492,20 @@ function (_Slider) {
     value: function render() {
       var _this2 = this;
 
-      this.hidePages();
-      this.showPage(this.pageIndex);
-      this.btns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          _this2.movePage(1);
-        });
-        btn.parentNode.previousElementSibling.addEventListener('click', function () {
-          _this2.pageIndex = 1;
+      try {
+        this.hidePages();
+        this.showPage(this.pageIndex);
+        this.btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            _this2.movePage(1);
+          });
+          btn.parentNode.previousElementSibling.addEventListener('click', function () {
+            _this2.pageIndex = 1;
 
-          _this2.showPage(_this2.pageIndex);
+            _this2.showPage(_this2.pageIndex);
+          });
         });
-      });
+      } catch (e) {}
     }
   }]);
 
@@ -5654,19 +5666,21 @@ function (_Slider) {
     value: function init() {
       var _this4 = this;
 
-      this.bindTriggers();
+      try {
+        this.bindTriggers();
 
-      if (this.interval) {
-        var sliderAnimation = setInterval(function () {
-          return _this4.moveNextSlide();
-        }, 5000);
-        this.container.addEventListener('mouseenter', function () {
-          return clearInterval(sliderAnimation);
-        });
-        this.container.addEventListener('mouseleave', function () {
-          return _this4.moveNextSlide();
-        });
-      }
+        if (this.interval) {
+          var sliderAnimation = setInterval(function () {
+            return _this4.moveNextSlide();
+          }, 5000);
+          this.container.addEventListener('mouseenter', function () {
+            return clearInterval(sliderAnimation);
+          });
+          this.container.addEventListener('mouseleave', function () {
+            return _this4.moveNextSlide();
+          });
+        }
+      } catch (e) {}
     }
   }]);
 
@@ -5709,7 +5723,12 @@ var Slider = function Slider() {
   _classCallCheck(this, Slider);
 
   this.container = document.querySelector(container);
-  this.slides = this.container.children;
+
+  try {
+    this.slides = this.container.children;
+  } catch (e) {}
+
+  ;
   this.btns = document.querySelectorAll(btns);
   this.nextBtn = document.querySelector(nextBtn);
   this.prevBtn = document.querySelector(prevBtn);

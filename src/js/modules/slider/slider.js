@@ -1,7 +1,7 @@
 export default class Slider {
     constructor({ container = null, btns = null, nextBtn = null, prevBtn = null, activeClassname = null, animated = null, interval = null } = '') {
         this.container = document.querySelector(container);
-        this.slides = this.container.children;
+        try { this.slides = this.container.children; } catch (e) { };
         this.btns = document.querySelectorAll(btns);
         this.nextBtn = document.querySelector(nextBtn);
         this.prevBtn = document.querySelector(prevBtn);
