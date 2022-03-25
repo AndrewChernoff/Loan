@@ -15,7 +15,7 @@ export default class MainSlider extends Slider {
         if (number === this.slides.length + 1) {
             this.pageIndex = 1;
         } else if (number < 1) {
-            this.pageIndex = this.slides.length + 1;
+            this.pageIndex = this.slides.length;
         }
 
         this.hidePages();
@@ -37,6 +37,7 @@ export default class MainSlider extends Slider {
     }
 
     render() {
+        debugger
         try {
             this.hidePages();
             this.showPage(this.pageIndex);
@@ -47,10 +48,24 @@ export default class MainSlider extends Slider {
                 });
 
                 btn.parentNode.previousElementSibling.addEventListener('click', () => {
+
                     this.pageIndex = 1;
                     this.showPage(this.pageIndex);
                 })
             })
+
+            if (this.container.className === 'moduleapp') {
+                console.log('prev')
+
+                document.querySelectorAll('.prev').forEach(el =>
+                    el.addEventListener('click', () => {
+                        debugger
+                        console.log(this.slides)
+                        console.log(this.slides.length)
+                        this.movePage(-1)
+                    })
+                )
+            }
         } catch (e) { }
 
     }

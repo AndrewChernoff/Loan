@@ -10,6 +10,12 @@ const slider = new MainSlider({
 });
 slider.render();
 
+const modilesPageslider = new MainSlider({
+    container: '.moduleapp',
+    btns: '.next'
+});
+modilesPageslider.render();
+
 const miniSlider = new MiniSlider({
     container: '.showup__content-slider',
     nextBtn: '.showup__next',
