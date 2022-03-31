@@ -342,6 +342,36 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/array-method-has-species-support.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/core-js/internals/array-method-has-species-support.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "./node_modules/core-js/internals/well-known-symbol.js");
+var V8_VERSION = __webpack_require__(/*! ../internals/v8-version */ "./node_modules/core-js/internals/v8-version.js");
+
+var SPECIES = wellKnownSymbol('species');
+
+module.exports = function (METHOD_NAME) {
+  // We can't use this feature detection in V8 since it causes
+  // deoptimization and serious performance degradation
+  // https://github.com/zloirock/core-js/issues/677
+  return V8_VERSION >= 51 || !fails(function () {
+    var array = [];
+    var constructor = array.constructor = {};
+    constructor[SPECIES] = function () {
+      return { foo: 1 };
+    };
+    return array[METHOD_NAME](Boolean).foo !== 1;
+  });
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/array-species-create.js":
 /*!****************************************************************!*\
   !*** ./node_modules/core-js/internals/array-species-create.js ***!
@@ -2979,6 +3009,38 @@ exports.f = wellKnownSymbol;
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.array.filter.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/modules/es.array.filter.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var $filter = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").filter;
+var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
+var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "./node_modules/core-js/internals/array-method-has-species-support.js");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
+// Edge 14- issue
+var USES_TO_LENGTH = HAS_SPECIES_SUPPORT && !fails(function () {
+  [].filter.call({ length: -1, 0: 1 }, function (it) { throw it; });
+});
+
+// `Array.prototype.filter` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.filter
+// with adding support of @@species
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+  filter: function filter(callbackfn /* , thisArg */) {
+    return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.array.iterator.js":
 /*!***********************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.iterator.js ***!
@@ -4986,6 +5048,8 @@ var miniSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["d
 miniSlider.init();
 var video = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.play__circle', '.overlay', '.close');
 video.render();
+var videoModule = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.module__video .play__circle', '.overlay', '.close');
+videoModule.render();
 var moduleSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["default"]({
   container: '.modules__content-slider',
   nextBtn: '.slick-next',
@@ -5300,8 +5364,11 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return playVideo; });
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.filter */ "./node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5319,6 +5386,7 @@ function () {
     this.trigger = document.querySelectorAll(trigger);
     this.modal = document.querySelector(modal);
     this.close = document.querySelector(close);
+    this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
   }
 
   _createClass(playVideo, [{
@@ -5328,7 +5396,10 @@ function () {
       this.player = new YT.Player('frame', {
         height: '360',
         width: '640',
-        videoId: "".concat(url)
+        videoId: "".concat(url),
+        events: {
+          'onStateChange': this.onPlayerStateChange
+        }
       });
     }
   }, {
@@ -5337,19 +5408,68 @@ function () {
       var _this = this;
 
       ///open popup with youtube video
-      this.trigger.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          if (document.querySelector('iframe#frame')) {
-            ///when iframe created
-            _this.modal.style.display = 'flex';
-          } else {
-            _this.modal.style.display = 'flex';
-            var path = btn.parentNode.getAttribute('data-url');
+      try {
+        this.trigger.forEach(function (btn, i) {
+          if (i % 2 != 0) {
+            // index is even
+            btn.setAttribute('data-disabled', 'true');
+          } else if (i % 2 === 0) {
+            btn.setAttribute('data-disabled', 'false');
+          } else if (btn.closest('.colored')) {
+            btn.setAttribute('data-disabled', 'false');
+          } //let smt = document.querySelector('[data-disabled]')
 
-            _this.onYouTubeIframeAPIReady(path);
-          }
+
+          btn.addEventListener('click', function () {
+            if (btn.dataset.disabled != 'true') {
+              ////////neeed to finish
+              console.log('can play');
+              _this.activeBtn = btn;
+
+              if (document.querySelector('iframe#frame')) {
+                ///when iframe created
+                _this.modal.style.display = 'flex';
+
+                if (_this.path != btn.parentNode.getAttribute('data-url')) {
+                  _this.path = btn.parentNode.getAttribute('data-url');
+
+                  _this.player.loadVideoById({
+                    'videoId': _this.path
+                  });
+                }
+
+                console.log(_this.activeBtn);
+              } else {
+                _this.path = btn.parentNode.getAttribute('data-url');
+
+                _this.onYouTubeIframeAPIReady(_this.path);
+              }
+            }
+          });
         });
-      });
+      } catch (error) {}
+    }
+  }, {
+    key: "onPlayerStateChange",
+    value: function onPlayerStateChange(e) {
+      try {
+        var firstBtn = this.activeBtn;
+        var blockedBtn = firstBtn.closest('.module__video-item').nextElementSibling;
+
+        if (e.data === 0) {
+          if (blockedBtn.querySelector('.play__circle').classList.contains('closed')) {
+            blockedBtn.style.opacity = '1';
+            blockedBtn.style.filter = 'grayscale(0%)';
+            blockedBtn.querySelector('.play__circle').classList.remove('closed');
+            console.log(blockedBtn.querySelector('.play__text attention'));
+            blockedBtn.querySelector('.play__text.attention').innerHTML = "\n                    <div class=\"play__text\"> play video </div>\n                    ";
+            blockedBtn.querySelector('.play__circle').dataset.disabled = 'false';
+            blockedBtn.querySelector('.play__circle').querySelector('svg').remove();
+            blockedBtn.querySelector('.play__circle').appendChild(firstBtn.querySelector('svg').cloneNode(true));
+            console.log(this.activeBtn);
+          }
+        }
+      } catch (error) {}
     }
   }, {
     key: "closeModal",
@@ -5360,7 +5480,7 @@ function () {
       this.close.addEventListener('click', function () {
         _this2.modal.style.display = 'none';
 
-        _this2.player.pauseVideo();
+        _this2.player.stopVideo();
       });
     }
   }, {
@@ -5497,8 +5617,6 @@ function (_Slider) {
     value: function render() {
       var _this2 = this;
 
-      debugger;
-
       try {
         this.hidePages();
         this.showPage(this.pageIndex);
@@ -5517,7 +5635,6 @@ function (_Slider) {
           console.log('prev');
           document.querySelectorAll('.prev').forEach(function (el) {
             return el.addEventListener('click', function () {
-              debugger;
               console.log(_this2.slides);
               console.log(_this2.slides.length);
 

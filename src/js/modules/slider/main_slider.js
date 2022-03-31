@@ -37,7 +37,6 @@ export default class MainSlider extends Slider {
     }
 
     render() {
-        debugger
         try {
             this.hidePages();
             this.showPage(this.pageIndex);
@@ -59,7 +58,6 @@ export default class MainSlider extends Slider {
 
                 document.querySelectorAll('.prev').forEach(el =>
                     el.addEventListener('click', () => {
-                        debugger
                         console.log(this.slides)
                         console.log(this.slides.length)
                         this.movePage(-1)

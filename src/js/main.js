@@ -28,6 +28,9 @@ miniSlider.init();
 const video = new playVideo('.play__circle', '.overlay', '.close');
 video.render();
 
+const videoModule = new playVideo('.module__video .play__circle', '.overlay', '.close');
+videoModule.render();
+
 const moduleSlider = new MiniSlider({
     container: '.modules__content-slider',
     nextBtn: '.slick-next',
