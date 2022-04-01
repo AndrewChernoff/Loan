@@ -5018,27 +5018,31 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_difference__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/difference */ "./src/js/modules/difference.js");
-/* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
-/* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
-/* harmony import */ var _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/slider/main_slider */ "./src/js/modules/slider/main_slider.js");
-/* harmony import */ var _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/slider/mini_slider */ "./src/js/modules/slider/mini_slider.js");
+/* harmony import */ var _modules_accordeon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/accordeon */ "./src/js/modules/accordeon.js");
+/* harmony import */ var _modules_difference__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/difference */ "./src/js/modules/difference.js");
+/* harmony import */ var _modules_download__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/download */ "./src/js/modules/download.js");
+/* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
+/* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
+/* harmony import */ var _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/slider/main_slider */ "./src/js/modules/slider/main_slider.js");
+/* harmony import */ var _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/slider/mini_slider */ "./src/js/modules/slider/mini_slider.js");
 
 
 
 
 
-var slider = new _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_3__["default"]({
+
+
+var slider = new _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_5__["default"]({
   container: '.page',
   btns: '.next'
 });
 slider.render();
-var modilesPageslider = new _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_3__["default"]({
+var modilesPageslider = new _modules_slider_main_slider__WEBPACK_IMPORTED_MODULE_5__["default"]({
   container: '.moduleapp',
   btns: '.next'
 });
 modilesPageslider.render();
-var miniSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["default"]({
+var miniSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_6__["default"]({
   container: '.showup__content-slider',
   nextBtn: '.showup__next',
   prevBtn: '.showup__prev',
@@ -5046,11 +5050,11 @@ var miniSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["d
   animated: true
 });
 miniSlider.init();
-var video = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.play__circle', '.overlay', '.close');
+var video = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_4__["default"]('.play__circle', '.overlay', '.close');
 video.render();
-var videoModule = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.module__video .play__circle', '.overlay', '.close');
+var videoModule = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_4__["default"]('.module__video .play__circle', '.overlay', '.close');
 videoModule.render();
-var moduleSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["default"]({
+var moduleSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_6__["default"]({
   container: '.modules__content-slider',
   nextBtn: '.slick-next',
   prevBtn: '.slick-prev',
@@ -5059,29 +5063,89 @@ var moduleSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__[
   interval: true
 });
 moduleSlider.init();
-var feedSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_4__["default"]({
+var feedSlider = new _modules_slider_mini_slider__WEBPACK_IMPORTED_MODULE_6__["default"]({
   container: '.feed__slider',
   nextBtn: '.feed__slider .slick-next .play__content',
   prevBtn: '.feed__slider .slick-prev .play__content',
   activeClassname: 'feed__item-active'
 });
 feedSlider.init();
-var education = new _modules_difference__WEBPACK_IMPORTED_MODULE_0__["default"]({
+var education = new _modules_difference__WEBPACK_IMPORTED_MODULE_1__["default"]({
   container: '.officerold',
   items: '.officerold .officer__card-item',
   clickItem: '.plus'
 });
 education.init();
-var educationPast = new _modules_difference__WEBPACK_IMPORTED_MODULE_0__["default"]({
+var educationPast = new _modules_difference__WEBPACK_IMPORTED_MODULE_1__["default"]({
   container: '.officernew',
   items: '.officernew .officer__card-item',
   clickItem: '.plus'
 });
 educationPast.init();
-var form = new _modules_form__WEBPACK_IMPORTED_MODULE_1__["default"]({
+var form = new _modules_form__WEBPACK_IMPORTED_MODULE_3__["default"]({
   selector: '.form'
 });
 form.init();
+var accordeon = new _modules_accordeon__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  clickSelector: '.plus__content'
+});
+accordeon.init();
+var download = new _modules_download__WEBPACK_IMPORTED_MODULE_2__["default"]({
+  triggers: '.download'
+});
+download.init();
+
+/***/ }),
+
+/***/ "./src/js/modules/accordeon.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/accordeon.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Accordeon; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Accordeon =
+/*#__PURE__*/
+function () {
+  function Accordeon() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '',
+        clickSelector = _ref.clickSelector;
+
+    _classCallCheck(this, Accordeon);
+
+    this.plus = document.querySelectorAll(clickSelector);
+  }
+
+  _createClass(Accordeon, [{
+    key: "init",
+    value: function init() {
+      this.plus.forEach(function (el, i) {
+        el.addEventListener('click', function () {
+          var sibling = el.closest('.module__info-show').nextElementSibling;
+          sibling.style.marginTop = '16px';
+          sibling.classList.toggle('msg');
+        });
+      });
+    }
+  }]);
+
+  return Accordeon;
+}();
+
+
 
 /***/ }),
 
@@ -5170,6 +5234,71 @@ function () {
   }]);
 
   return Difference;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/modules/download.js":
+/*!************************************!*\
+  !*** ./src/js/modules/download.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Download; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Download =
+/*#__PURE__*/
+function () {
+  function Download() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '',
+        triggers = _ref.triggers;
+
+    _classCallCheck(this, Download);
+
+    this.triggers = document.querySelectorAll(triggers);
+    this.path = 'assets/img/mainbg.jpg';
+  }
+
+  _createClass(Download, [{
+    key: "download",
+    value: function download(path) {
+      var a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('href', path);
+      a.setAttribute('download', 'nice_image');
+      a.click();
+      document.body.removeChild();
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      this.triggers.forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+
+          _this.download(_this.path);
+        });
+      });
+    }
+  }]);
+
+  return Download;
 }();
 
 

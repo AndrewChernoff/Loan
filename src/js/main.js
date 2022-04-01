@@ -1,4 +1,6 @@
+import Accordeon from "./modules/accordeon";
 import Difference from "./modules/difference";
+import Download from "./modules/download";
 import Form from "./modules/form";
 import playVideo from "./modules/playVideo";
 import MainSlider from "./modules/slider/main_slider";
@@ -67,3 +69,9 @@ const form = new Form({
     selector: '.form'
 });
 form.init();
+
+const accordeon = new Accordeon({ clickSelector: '.plus__content' });
+accordeon.init();
+
+const download = new Download({ triggers: '.download' });
+download.init();
